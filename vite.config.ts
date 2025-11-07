@@ -56,8 +56,8 @@ export default defineConfig(({ mode }) => ({
       target: 'esnext',
       outDir: 'build',
     },
-  server: {
-    host: "::",
-    port: 8080,
-  },
-}));
+    server: {
+      host: "::",
+      port: 8080,
+    },
+  }));
