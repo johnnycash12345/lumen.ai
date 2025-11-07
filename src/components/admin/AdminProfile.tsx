@@ -12,7 +12,7 @@ interface AdminProfileProps {
 export function AdminProfile({ user }: AdminProfileProps) {
   return (
     <div>
-      <h1 className="text-3xl font-['Playfair_Display'] text-[#0B1E3D] mb-8">
+      <h1 style={{ fontFamily: 'Playfair Display, serif' }} className="text-3xl text-[#0B1E3D] mb-8">
         Perfil do Administrador
       </h1>
 
@@ -23,7 +23,7 @@ export function AdminProfile({ user }: AdminProfileProps) {
               <UserIcon className="w-10 h-10 text-[#0B1E3D]" />
             </div>
             <div>
-              <h2 className="text-2xl font-['Playfair_Display'] text-[#0B1E3D]">
+              <h2 style={{ fontFamily: 'Playfair Display, serif' }} className="text-2xl text-[#0B1E3D]">
                 {user.email}
               </h2>
               <div className="flex items-center gap-2 mt-1">

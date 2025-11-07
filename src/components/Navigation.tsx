@@ -43,7 +43,7 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
             >
               <Hexagon className="w-6 h-6 sm:w-8 sm:h-8 text-[#FFD479] fill-[#FFD479]" />
             </motion.div>
-            <span className="font-['Playfair_Display'] text-lg sm:text-xl lg:text-2xl text-[#0B1E3D] group-hover:text-[#FFD479] transition-colors duration-300">
+            <span style={{ fontFamily: 'Playfair Display, serif' }} className="text-lg sm:text-xl lg:text-2xl text-[#0B1E3D] group-hover:text-[#FFD479] transition-colors duration-300">
               LUMEN
             </span>
           </button>

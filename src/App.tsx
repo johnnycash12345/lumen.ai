@@ -6,6 +6,7 @@ import { AboutPage } from './components/AboutPage';
 import { DocumentationPage } from './components/DocumentationPage';
 import { ContactPage } from './components/ContactPage';
 import { AdminDashboard } from './pages/AdminDashboard';
+import { Toaster } from './components/ui/sonner';
 import { motion, AnimatePresence } from 'motion/react';
 
 type Page = 'inicio' | 'universos' | 'sobre' | 'documentacao' | 'contato' | 'admin';
@@ -46,12 +47,18 @@ function App() {
 
   // Render admin dashboard without navigation
   if (currentPage === 'admin') {
-    return <AdminDashboard />;
+    return (
+      <>
+        <AdminDashboard />
+        <Toaster />
+      </>
+    );
   }
 
   return (
     <div className="min-h-screen">
       <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
+      <Toaster />
       
       <AnimatePresence mode="wait">
         {currentPage === 'inicio' && !selectedUniverse && (

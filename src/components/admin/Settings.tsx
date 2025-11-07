@@ -6,13 +6,13 @@ import { Switch } from '@/components/ui/switch';
 export function Settings() {
   return (
     <div>
-      <h1 className="text-3xl font-['Playfair_Display'] text-[#0B1E3D] mb-8">
+      <h1 style={{ fontFamily: 'Playfair Display, serif' }} className="text-3xl text-[#0B1E3D] mb-8">
         Configurações
       </h1>
 
       <div className="max-w-2xl space-y-6">
         <Card className="p-6 bg-white">
-          <h2 className="text-xl font-['Playfair_Display'] text-[#0B1E3D] mb-4">
+          <h2 style={{ fontFamily: 'Playfair Display, serif' }} className="text-xl text-[#0B1E3D] mb-4">
             Configurações de Upload
           </h2>
           <div className="space-y-4">
@@ -43,7 +43,7 @@ export function Settings() {
         </Card>
 
         <Card className="p-6 bg-white">
-          <h2 className="text-xl font-['Playfair_Display'] text-[#0B1E3D] mb-4">
+          <h2 style={{ fontFamily: 'Playfair Display, serif' }} className="text-xl text-[#0B1E3D] mb-4">
             Configurações de IA
           </h2>
           <div className="space-y-4">
@@ -95,7 +95,7 @@ export function Settings() {
         </Card>
 
         <Card className="p-6 bg-white">
-          <h2 className="text-xl font-['Playfair_Display'] text-[#0B1E3D] mb-4">
+          <h2 style={{ fontFamily: 'Playfair Display, serif' }} className="text-xl text-[#0B1E3D] mb-4">
             Sistema
           </h2>
           <div className="flex items-center justify-between">

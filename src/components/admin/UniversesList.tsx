@@ -76,7 +76,7 @@ export function UniversesList() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-['Playfair_Display'] text-[#0B1E3D]">
+        <h1 style={{ fontFamily: 'Playfair Display, serif' }} className="text-3xl text-[#0B1E3D]">
           Universos
         </h1>
       </div>
@@ -98,7 +98,7 @@ export function UniversesList() {
           <Card key={universe.id} className="p-6 bg-white hover:shadow-lg transition-shadow">
             <div className="mb-4">
               <div className="flex items-start justify-between mb-2">
-                <h3 className="text-xl font-['Playfair_Display'] text-[#0B1E3D]">
+                <h3 style={{ fontFamily: 'Playfair Display, serif' }} className="text-xl text-[#0B1E3D]">
                   {universe.title}
                 </h3>
                 <Badge

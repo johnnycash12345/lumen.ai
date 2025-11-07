@@ -127,7 +127,7 @@ export function UploadPDF() {
 
   return (
     <div>
-      <h1 className="text-3xl font-['Playfair_Display'] text-[#0B1E3D] mb-8">
+      <h1 style={{ fontFamily: 'Playfair Display, serif' }} className="text-3xl text-[#0B1E3D] mb-8">
         Upload de PDF
       </h1>
 

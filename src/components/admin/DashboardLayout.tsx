@@ -49,7 +49,7 @@ export function DashboardLayout({
               <BookOpen className="w-5 h-5 text-[#0B1E3D]" />
             </div>
             <div>
-              <h1 className="text-lg font-['Playfair_Display'] text-[#0B1E3D]">
+              <h1 style={{ fontFamily: 'Playfair Display, serif' }} className="text-lg text-[#0B1E3D]">
                 Lumen Admin
               </h1>
             </div>
@@ -99,7 +99,7 @@ export function DashboardLayout({
                 <div className="w-10 h-10 bg-[#FFD479] rounded-full flex items-center justify-center">
                   <BookOpen className="w-5 h-5 text-[#0B1E3D]" />
                 </div>
-                <h1 className="text-lg font-['Playfair_Display'] text-[#0B1E3D]">
+                <h1 style={{ fontFamily: 'Playfair Display, serif' }} className="text-lg text-[#0B1E3D]">
                   Lumen Admin
                 </h1>
               </div>

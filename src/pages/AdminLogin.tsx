@@ -75,7 +75,7 @@ export function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
           <div className="w-16 h-16 bg-[#FFD479] rounded-full flex items-center justify-center mb-4">
             <BookOpen className="w-8 h-8 text-[#0B1E3D]" />
           </div>
-          <h1 className="text-3xl font-['Playfair_Display'] text-[#0B1E3D] mb-2">
+          <h1 style={{ fontFamily: 'Playfair Display, serif' }} className="text-3xl text-[#0B1E3D] mb-2">
             Lumen Admin
           </h1>
           <p className="text-sm text-[#0B1E3D]/70">
