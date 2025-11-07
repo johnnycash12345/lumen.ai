@@ -1,107 +1,102 @@
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { Toaster } from "@/components/ui/toaster";
-import { Auth } from "@/pages/Auth";
-import { Dashboard } from "@/pages/Dashboard";
-import { UniverseView } from "@/pages/UniverseView";
 import { Navigation } from './components/Navigation';
 import { HomePage } from './components/HomePage';
+import { EnhancedUniversePage } from './components/EnhancedUniversePage';
 import { AboutPage } from './components/AboutPage';
 import { DocumentationPage } from './components/DocumentationPage';
 import { ContactPage } from './components/ContactPage';
 import { motion, AnimatePresence } from 'motion/react';
 
-type Page = 'inicio' | 'sobre' | 'documentacao' | 'contato';
+type Page = 'inicio' | 'universos' | 'sobre' | 'documentacao' | 'contato';
 
-function AppContent() {
+function App() {
   const [currentPage, setCurrentPage] = useState<Page>('inicio');
-  const location = useLocation();
+  const [selectedUniverse, setSelectedUniverse] = useState<string | null>(null);
 
   const handleNavigate = (page: string) => {
     setCurrentPage(page as Page);
+    setSelectedUniverse(null);
   };
 
-  const handleSelectUniverse = () => {
-    // Placeholder
+  const handleSelectUniverse = (universeId: string) => {
+    setSelectedUniverse(universeId);
+    setCurrentPage('universos');
   };
 
-  // Hide navigation on auth, dashboard and universe pages
-  const hideNav = location.pathname === '/auth' || 
-                  location.pathname === '/dashboard' || 
-                  location.pathname.startsWith('/universe/');
+  const handleBackFromUniverse = () => {
+    setSelectedUniverse(null);
+    setCurrentPage('inicio');
+  };
 
   return (
-    <>
-      {!hideNav && <Navigation currentPage={currentPage} onNavigate={handleNavigate} />}
+    <div className="min-h-screen">
+      <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
       
-      <Routes>
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/universe/:id" element={<UniverseView />} />
-        <Route path="/" element={
-          <div className="min-h-screen">
-            <AnimatePresence mode="wait">
-              {currentPage === 'inicio' && (
-                <motion.div
-                  key="home"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <HomePage onSelectUniverse={handleSelectUniverse} />
-                </motion.div>
-              )}
+      <AnimatePresence mode="wait">
+        {currentPage === 'inicio' && !selectedUniverse && (
+          <motion.div
+            key="home"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <HomePage onSelectUniverse={handleSelectUniverse} />
+          </motion.div>
+        )}
 
-              {currentPage === 'sobre' && (
-                <motion.div
-                  key="about"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <AboutPage />
-                </motion.div>
-              )}
+        {currentPage === 'universos' && selectedUniverse && (
+          <motion.div
+            key="universe"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <EnhancedUniversePage 
+              universeId={selectedUniverse} 
+              onBack={handleBackFromUniverse}
+            />
+          </motion.div>
+        )}
 
-              {currentPage === 'documentacao' && (
-                <motion.div
-                  key="documentation"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <DocumentationPage />
-                </motion.div>
-              )}
+        {currentPage === 'sobre' && (
+          <motion.div
+            key="about"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <AboutPage />
+          </motion.div>
+        )}
 
-              {currentPage === 'contato' && (
-                <motion.div
-                  key="contact"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <ContactPage />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        } />
-      </Routes>
-      <Toaster />
-    </>
-  );
-}
+        {currentPage === 'documentacao' && (
+          <motion.div
+            key="documentation"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <DocumentationPage />
+          </motion.div>
+        )}
 
-function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+        {currentPage === 'contato' && (
+          <motion.div
+            key="contact"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <ContactPage />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 

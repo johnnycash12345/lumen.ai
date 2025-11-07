@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Upload, LogOut, Book, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 import { UploadPDFDialog } from "@/components/UploadPDFDialog";
 
 interface Universe {
@@ -16,7 +16,6 @@ interface Universe {
 }
 
 export const Dashboard = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const [universes, setUniverses] = useState<Universe[]>([]);
   const [loading, setLoading] = useState(true);
@@ -30,7 +29,7 @@ export const Dashboard = () => {
   const checkAuth = async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
-      navigate("/auth");
+      window.location.href = '/auth.html';
     }
   };
 
@@ -56,10 +55,11 @@ export const Dashboard = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate("/auth");
+    window.location.href = '/';
   };
 
   return (
+    <>
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10">
       <header className="border-b bg-background/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -109,7 +109,7 @@ export const Dashboard = () => {
               <Card
                 key={universe.id}
                 className="p-6 cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => navigate(`/universe/${universe.id}`)}
+                onClick={() => window.location.href = `/universe.html?id=${universe.id}`}
               >
                 <h3 className="text-xl font-semibold mb-2">{universe.title}</h3>
                 {universe.description && (
@@ -139,5 +139,7 @@ export const Dashboard = () => {
 
       <UploadPDFDialog open={uploadOpen} onOpenChange={setUploadOpen} onSuccess={fetchUniverses} />
     </div>
+    <Toaster />
+    </>
   );
 };
