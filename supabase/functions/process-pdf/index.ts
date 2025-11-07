@@ -173,26 +173,17 @@ Retorne APENAS o JSON, sem explicações adicionais.`;
 
     // Create dynamic pages for all entities
     try {
-      const supabaseUrl = Deno.env.get('SUPABASE_URL');
-      const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
-      
-      const createPagesResponse = await fetch(
-        `${supabaseUrl}/functions/v1/create-universe-pages`,
+      const { data: pagesResult, error: pagesError } = await supabase.functions.invoke(
+        'create-universe-pages',
         {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${supabaseServiceKey}`,
-          },
-          body: JSON.stringify({ universeId }),
+          body: { universeId },
         }
       );
 
-      if (createPagesResponse.ok) {
-        const pagesResult = await createPagesResponse.json();
-        console.log(`Pages created: ${pagesResult.pagesCreated}`);
+      if (pagesError) {
+        console.error('Failed to create pages:', pagesError);
       } else {
-        console.error('Failed to create pages:', await createPagesResponse.text());
+        console.log(`Pages created: ${pagesResult.pagesCreated}`);
       }
     } catch (pageError) {
       console.error('Error creating pages:', pageError);
