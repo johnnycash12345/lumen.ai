@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { Auth } from "@/pages/Auth";
 import { Dashboard } from "@/pages/Dashboard";
@@ -13,20 +13,26 @@ import { motion, AnimatePresence } from 'motion/react';
 
 type Page = 'inicio' | 'sobre' | 'documentacao' | 'contato';
 
-function App() {
+function AppContent() {
   const [currentPage, setCurrentPage] = useState<Page>('inicio');
+  const location = useLocation();
 
   const handleNavigate = (page: string) => {
     setCurrentPage(page as Page);
   };
 
   const handleSelectUniverse = () => {
-    // For now, just a placeholder
+    // Placeholder
   };
 
+  // Hide navigation on auth, dashboard and universe pages
+  const hideNav = location.pathname === '/auth' || 
+                  location.pathname === '/dashboard' || 
+                  location.pathname.startsWith('/universe/');
+
   return (
-    <BrowserRouter>
-      <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
+    <>
+      {!hideNav && <Navigation currentPage={currentPage} onNavigate={handleNavigate} />}
       
       <Routes>
         <Route path="/auth" element={<Auth />} />
@@ -87,6 +93,14 @@ function App() {
         } />
       </Routes>
       <Toaster />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }
