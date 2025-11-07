@@ -1,7 +1,1 @@
 project_id = "ktqiyhrfiryfgkitkpgh"
-
-[functions.process-pdf]
-verify_jwt = false
-
-[functions.chat-universe]
-verify_jwt = false

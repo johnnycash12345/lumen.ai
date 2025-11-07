@@ -1,7 +1,6 @@
-import { Hexagon, Menu, X, LogIn, User } from 'lucide-react';
+import { Hexagon, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { useState } from 'react';
 
 interface NavigationProps {
   currentPage: string;
@@ -10,19 +9,6 @@ interface NavigationProps {
 
 export function Navigation({ currentPage, onNavigate }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
 
   const navItems = [
     { id: 'inicio', label: 'Início' },
@@ -34,14 +20,6 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
   const handleNavigate = (page: string) => {
     onNavigate(page);
     setMobileMenuOpen(false);
-  };
-
-  const handleAuthClick = () => {
-    if (user) {
-      window.location.href = '/dashboard.html';
-    } else {
-      window.location.href = '/auth.html';
-    }
   };
 
   return (
@@ -92,24 +70,6 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
                 )}
               </button>
             ))}
-            
-            {/* Desktop Auth Button */}
-            <button
-              onClick={handleAuthClick}
-              className="flex items-center gap-2 px-4 py-2 bg-[#0B1E3D] text-white rounded-lg hover:bg-[#0B1E3D]/90 transition-colors"
-            >
-              {user ? (
-                <>
-                  <User className="w-4 h-4" />
-                  Dashboard
-                </>
-              ) : (
-                <>
-                  <LogIn className="w-4 h-4" />
-                  Entrar
-                </>
-              )}
-            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -165,29 +125,6 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
                     {item.label}
                   </motion.button>
                 ))}
-                
-                {/* Mobile Auth Button */}
-                <div className="pt-4 mt-4 border-t border-[#0B1E3D]/10">
-                  <button
-                    onClick={() => {
-                      handleAuthClick();
-                      setMobileMenuOpen(false);
-                    }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-[#0B1E3D] text-white rounded-lg hover:bg-[#0B1E3D]/90 transition-colors"
-                  >
-                    {user ? (
-                      <>
-                        <User className="w-4 h-4" />
-                        Dashboard
-                      </>
-                    ) : (
-                      <>
-                        <LogIn className="w-4 h-4" />
-                        Entrar
-                      </>
-                    )}
-                  </button>
-                </div>
               </div>
 
               {/* Golden accent at bottom */}
