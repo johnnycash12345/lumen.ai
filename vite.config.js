@@ -5,11 +5,23 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   
+  const plugins = [react()];
+  
+  // Import componentTagger dynamically in development
+  if (mode === 'development') {
+    try {
+      const { componentTagger } = await import("lovable-tagger");
+      plugins.push(componentTagger());
+    } catch (e) {
+      console.warn('lovable-tagger not available');
+    }
+  }
+  
   return {
-    plugins: [react()],
+    plugins,
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {
