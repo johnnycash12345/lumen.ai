@@ -2,3 +2,9 @@ project_id = "ktqiyhrfiryfgkitkpgh"
 
 [functions.process-pdf]
 verify_jwt = true
+
+[functions.create-universe-pages]
+verify_jwt = true
+
+[functions.get-page-data]
+verify_jwt = false

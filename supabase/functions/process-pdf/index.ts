@@ -169,7 +169,37 @@ Retorne APENAS o JSON, sem explicações adicionais.`;
       .update({ status: 'COMPLETED', progress: 100 })
       .eq('universe_id', universeId);
 
-    console.log('Processing complete!');
+    console.log('Processing complete! Creating pages...');
+
+    // Create dynamic pages for all entities
+    try {
+      const supabaseUrl = Deno.env.get('SUPABASE_URL');
+      const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+      
+      const createPagesResponse = await fetch(
+        `${supabaseUrl}/functions/v1/create-universe-pages`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseServiceKey}`,
+          },
+          body: JSON.stringify({ universeId }),
+        }
+      );
+
+      if (createPagesResponse.ok) {
+        const pagesResult = await createPagesResponse.json();
+        console.log(`Pages created: ${pagesResult.pagesCreated}`);
+      } else {
+        console.error('Failed to create pages:', await createPagesResponse.text());
+      }
+    } catch (pageError) {
+      console.error('Error creating pages:', pageError);
+      // Don't fail the whole process if page creation fails
+    }
+
+    console.log('Processing and page creation complete!');
 
     return new Response(
       JSON.stringify({

@@ -157,6 +157,80 @@ export type Database = {
           },
         ]
       }
+      page_templates: {
+        Row: {
+          created_at: string | null
+          id: string
+          schema: Json | null
+          template_version: string
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          schema?: Json | null
+          template_version?: string
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          schema?: Json | null
+          template_version?: string
+          type?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      pages: {
+        Row: {
+          created_at: string | null
+          entity_id: string
+          error_message: string | null
+          id: string
+          last_updated: string | null
+          retry_count: number | null
+          slug: string
+          status: string
+          type: string
+          universe_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          entity_id: string
+          error_message?: string | null
+          id?: string
+          last_updated?: string | null
+          retry_count?: number | null
+          slug: string
+          status?: string
+          type: string
+          universe_id: string
+        }
+        Update: {
+          created_at?: string | null
+          entity_id?: string
+          error_message?: string | null
+          id?: string
+          last_updated?: string | null
+          retry_count?: number | null
+          slug?: string
+          status?: string
+          type?: string
+          universe_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pages_universe_id_fkey"
+            columns: ["universe_id"]
+            isOneToOne: false
+            referencedRelation: "universes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       processing_jobs: {
         Row: {
           created_at: string
