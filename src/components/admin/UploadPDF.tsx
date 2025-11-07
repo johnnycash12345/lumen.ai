@@ -5,13 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { Upload, FileText, X, Check } from 'lucide-react';
 import { toast } from 'sonner';
@@ -19,11 +12,8 @@ import { toast } from 'sonner';
 export function UploadPDF() {
   const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({
-    name: '',
+    title: '',
     description: '',
-    source_type: 'BOOK',
-    author: '',
-    publication_year: '',
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -84,16 +74,11 @@ export function UploadPDF() {
       const { data: universe, error: universeError } = await supabase
         .from('universes')
         .insert({
-          name: formData.name,
+          title: formData.title,
           description: formData.description,
-          source_type: formData.source_type,
-          author: formData.author || null,
-          publication_year: formData.publication_year
-            ? parseInt(formData.publication_year)
-            : null,
-          status: 'PROCESSING',
-          pdf_url: filePath,
-          created_by: user.id,
+          processing_status: 'processing',
+          pdf_path: filePath,
+          user_id: user.id,
         })
         .select()
         .single();
@@ -111,7 +96,6 @@ export function UploadPDF() {
           universe_id: universe.id,
           status: 'PROCESSING',
           progress: 0,
-          created_by: user.id,
         });
 
       if (jobError) throw jobError;
@@ -125,11 +109,8 @@ export function UploadPDF() {
       // Reset form
       setFile(null);
       setFormData({
-        name: '',
+        title: '',
         description: '',
-        source_type: 'BOOK',
-        author: '',
-        publication_year: '',
       });
       setIsProcessing(false);
     } catch (error: any) {
@@ -202,14 +183,14 @@ export function UploadPDF() {
 
           {/* Form Fields */}
           <div>
-            <Label htmlFor="name" className="text-[#0B1E3D]">
-              Nome do Universo *
+            <Label htmlFor="title" className="text-[#0B1E3D]">
+              Título do Universo *
             </Label>
             <Input
-              id="name"
-              value={formData.name}
+              id="title"
+              value={formData.title}
               onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
+                setFormData({ ...formData, title: e.target.value })
               }
               placeholder="ex: Harry Potter e a Pedra Filosofal"
               required
@@ -220,7 +201,7 @@ export function UploadPDF() {
 
           <div>
             <Label htmlFor="description" className="text-[#0B1E3D]">
-              Descrição *
+              Descrição
             </Label>
             <Textarea
               id="description"
@@ -229,69 +210,10 @@ export function UploadPDF() {
                 setFormData({ ...formData, description: e.target.value })
               }
               placeholder="ex: O primeiro livro da série Harry Potter"
-              required
               maxLength={500}
               className="mt-1"
               rows={3}
             />
-          </div>
-
-          <div>
-            <Label htmlFor="source_type" className="text-[#0B1E3D]">
-              Tipo de Fonte *
-            </Label>
-            <Select
-              value={formData.source_type}
-              onValueChange={(value) =>
-                setFormData({ ...formData, source_type: value })
-              }
-            >
-              <SelectTrigger className="mt-1">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="BOOK">Livro</SelectItem>
-                <SelectItem value="MOVIE">Filme</SelectItem>
-                <SelectItem value="SERIES">Série</SelectItem>
-                <SelectItem value="GAME">Jogo</SelectItem>
-                <SelectItem value="OTHER">Outro</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="author" className="text-[#0B1E3D]">
-                Autor/Criador
-              </Label>
-              <Input
-                id="author"
-                value={formData.author}
-                onChange={(e) =>
-                  setFormData({ ...formData, author: e.target.value })
-                }
-                placeholder="ex: J.K. Rowling"
-                className="mt-1"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="year" className="text-[#0B1E3D]">
-                Ano de Publicação
-              </Label>
-              <Input
-                id="year"
-                type="number"
-                value={formData.publication_year}
-                onChange={(e) =>
-                  setFormData({ ...formData, publication_year: e.target.value })
-                }
-                placeholder="ex: 1997"
-                className="mt-1"
-                min="1000"
-                max="2100"
-              />
-            </div>
           </div>
 
           {/* Processing Progress */}
@@ -333,7 +255,7 @@ export function UploadPDF() {
           <div className="flex gap-4">
             <Button
               type="submit"
-              disabled={!file || !formData.name || !formData.description || isProcessing}
+              disabled={!file || !formData.title || isProcessing}
               className="flex-1 bg-[#0B1E3D] hover:bg-[#0B1E3D]/90 text-white"
             >
               {isProcessing ? 'Processando...' : 'Processar PDF'}
@@ -344,11 +266,8 @@ export function UploadPDF() {
               onClick={() => {
                 setFile(null);
                 setFormData({
-                  name: '',
+                  title: '',
                   description: '',
-                  source_type: 'BOOK',
-                  author: '',
-                  publication_year: '',
                 });
               }}
               disabled={isProcessing}

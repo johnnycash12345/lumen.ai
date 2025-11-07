@@ -9,16 +9,12 @@ import { toast } from 'sonner';
 
 interface Universe {
   id: string;
-  name: string;
-  description: string;
-  source_type: string;
-  status: string;
-  created_at: string;
-  _count?: {
-    characters: number;
-    locations: number;
-    events: number;
-  };
+  title: string;
+  description: string | null;
+  processing_status: string | null;
+  created_at: string | null;
+  pdf_path: string | null;
+  user_id: string;
 }
 
 export function UniversesList() {
@@ -65,8 +61,8 @@ export function UniversesList() {
 
   const filteredUniverses = universes.filter(
     (u) =>
-      u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      u.description.toLowerCase().includes(searchTerm.toLowerCase())
+      u.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      u.description?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (isLoading) {
@@ -103,36 +99,36 @@ export function UniversesList() {
             <div className="mb-4">
               <div className="flex items-start justify-between mb-2">
                 <h3 className="text-xl font-['Playfair_Display'] text-[#0B1E3D]">
-                  {universe.name}
+                  {universe.title}
                 </h3>
                 <Badge
                   className={
-                    universe.status === 'ACTIVE'
+                    universe.processing_status === 'completed'
                       ? 'bg-green-100 text-green-800'
-                      : universe.status === 'PROCESSING'
+                      : universe.processing_status === 'processing'
                       ? 'bg-yellow-100 text-yellow-800'
-                      : 'bg-red-100 text-red-800'
+                      : 'bg-gray-100 text-gray-800'
                   }
                 >
-                  {universe.status}
+                  {universe.processing_status || 'pending'}
                 </Badge>
               </div>
               <p className="text-sm text-[#0B1E3D]/70 line-clamp-2">
-                {universe.description}
+                {universe.description || 'Sem descrição'}
               </p>
             </div>
 
             <div className="space-y-2 mb-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-[#0B1E3D]/70">Tipo:</span>
+                <span className="text-[#0B1E3D]/70">Status:</span>
                 <Badge variant="outline" className="text-[#0B1E3D]">
-                  {universe.source_type}
+                  {universe.processing_status || 'pending'}
                 </Badge>
               </div>
               <div className="flex items-center justify-between text-sm">
                 <span className="text-[#0B1E3D]/70">Criado em:</span>
                 <span className="text-[#0B1E3D]">
-                  {new Date(universe.created_at).toLocaleDateString('pt-BR')}
+                  {universe.created_at ? new Date(universe.created_at).toLocaleDateString('pt-BR') : 'N/A'}
                 </span>
               </div>
             </div>
