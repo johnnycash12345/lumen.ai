@@ -6,10 +6,9 @@ interface StatsCardProps {
   value: number | string;
   icon: LucideIcon;
   trend?: string;
-  trendUp?: boolean;
 }
 
-export const StatsCard = ({ title, value, icon: Icon, trend, trendUp }: StatsCardProps) => {
+export const StatsCard = ({ title, value, icon: Icon, trend }: StatsCardProps) => {
   return (
     <Card className="overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
