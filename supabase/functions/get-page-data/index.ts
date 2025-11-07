@@ -16,8 +16,7 @@ serve(async (req) => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const url = new URL(req.url);
-    const slug = url.searchParams.get("slug");
+    const { slug } = await req.json();
 
     if (!slug) {
       return new Response(
