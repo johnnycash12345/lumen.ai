@@ -14,7 +14,288 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      characters: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          importance: string | null
+          name: string
+          role: string | null
+          universe_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          importance?: string | null
+          name: string
+          role?: string | null
+          universe_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          importance?: string | null
+          name?: string
+          role?: string | null
+          universe_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "characters_universe_id_fkey"
+            columns: ["universe_id"]
+            isOneToOne: false
+            referencedRelation: "universes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+          timeline_order: number | null
+          universe_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          timeline_order?: number | null
+          universe_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          timeline_order?: number | null
+          universe_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_universe_id_fkey"
+            columns: ["universe_id"]
+            isOneToOne: false
+            referencedRelation: "universes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      locations: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+          type: string | null
+          universe_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          type?: string | null
+          universe_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          type?: string | null
+          universe_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "locations_universe_id_fkey"
+            columns: ["universe_id"]
+            isOneToOne: false
+            referencedRelation: "universes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      objects: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+          significance: string | null
+          universe_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          significance?: string | null
+          universe_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          significance?: string | null
+          universe_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "objects_universe_id_fkey"
+            columns: ["universe_id"]
+            isOneToOne: false
+            referencedRelation: "universes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      processing_jobs: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          id: string
+          progress: number | null
+          status: string
+          universe_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          progress?: number | null
+          status?: string
+          universe_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          progress?: number | null
+          status?: string
+          universe_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "processing_jobs_universe_id_fkey"
+            columns: ["universe_id"]
+            isOneToOne: false
+            referencedRelation: "universes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      relationships: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          relationship_type: string
+          source_id: string
+          source_type: string
+          target_id: string
+          target_type: string
+          universe_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          relationship_type: string
+          source_id: string
+          source_type: string
+          target_id: string
+          target_type: string
+          universe_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          relationship_type?: string
+          source_id?: string
+          source_type?: string
+          target_id?: string
+          target_type?: string
+          universe_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relationships_universe_id_fkey"
+            columns: ["universe_id"]
+            isOneToOne: false
+            referencedRelation: "universes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      universes: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          pdf_path: string | null
+          processing_status: string | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          pdf_path?: string | null
+          processing_status?: string | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          pdf_path?: string | null
+          processing_status?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +304,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +431,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
