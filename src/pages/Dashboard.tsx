@@ -189,7 +189,7 @@ export const Dashboard = () => {
                             <Loader2 className="w-4 h-4 animate-spin text-primary" />
                           )}
                           {universe.processing_status === "completed" && (
-                            <CheckCircle className="w-4 h-4 text-green-500" />
+                            <CheckCircle className="w-4 h-4 text-primary" />
                           )}
                           {universe.processing_status === "failed" && (
                             <span className="text-destructive text-sm">✗</span>
@@ -207,7 +207,7 @@ export const Dashboard = () => {
                           <span className="text-primary font-medium">Processando...</span>
                         )}
                         {universe.processing_status === "completed" && (
-                          <span className="text-green-500 font-medium">Completo</span>
+                          <span className="text-primary font-medium">Completo</span>
                         )}
                         {universe.processing_status === "failed" && (
                           <span className="text-destructive font-medium">Erro no processamento</span>

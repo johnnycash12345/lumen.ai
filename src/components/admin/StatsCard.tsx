@@ -19,7 +19,7 @@ export const StatsCard = ({ title, value, icon: Icon, trend, trendUp }: StatsCar
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
         {trend && (
-          <p className={`text-xs ${trendUp ? 'text-green-600' : 'text-red-600'} mt-1`}>
+          <p className={`text-xs text-muted-foreground mt-1`}>
             {trend}
           </p>
         )}
