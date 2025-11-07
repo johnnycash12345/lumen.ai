@@ -60,6 +60,7 @@ export default defineConfig(({ mode }) => {
         main: './index.html',
         auth: './auth.html',
         dashboard: './dashboard.html',
+        universe: './universe.html',
       },
     },
   },

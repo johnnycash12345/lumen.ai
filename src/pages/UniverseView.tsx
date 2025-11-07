@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, Users, MapPin, Calendar, Box, Network, MessageSquare, Loader2 } from "lucide-react";
 import { ChatInterface } from "@/components/ChatInterface";
+import { Toaster } from "@/components/ui/toaster";
 
 interface Universe {
   id: string;
@@ -22,8 +22,7 @@ interface Entity {
 }
 
 export const UniverseView = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const [id, setId] = useState<string | null>(null);
   const [universe, setUniverse] = useState<Universe | null>(null);
   const [characters, setCharacters] = useState<Entity[]>([]);
   const [locations, setLocations] = useState<Entity[]>([]);
@@ -31,6 +30,12 @@ export const UniverseView = () => {
   const [objects, setObjects] = useState<Entity[]>([]);
   const [relationships, setRelationships] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const universeId = params.get('id');
+    setId(universeId);
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -75,12 +80,13 @@ export const UniverseView = () => {
   }
 
   return (
+    <>
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10">
       <header className="border-b bg-background/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">
           <Button
             variant="ghost"
-            onClick={() => navigate("/dashboard")}
+            onClick={() => window.location.href = '/dashboard.html'}
             className="mb-2"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -240,5 +246,7 @@ export const UniverseView = () => {
         )}
       </main>
     </div>
+    <Toaster />
+    </>
   );
 };
