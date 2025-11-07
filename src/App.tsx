@@ -1,47 +1,32 @@
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { Auth } from "@/pages/Auth";
 import { Dashboard } from "@/pages/Dashboard";
 import { UniverseView } from "@/pages/UniverseView";
 import { Navigation } from './components/Navigation';
 import { HomePage } from './components/HomePage';
-import { EnhancedUniversePage } from './components/EnhancedUniversePage';
 import { AboutPage } from './components/AboutPage';
 import { DocumentationPage } from './components/DocumentationPage';
 import { ContactPage } from './components/ContactPage';
 import { motion, AnimatePresence } from 'motion/react';
 
-type Page = 'inicio' | 'universos' | 'sobre' | 'documentacao' | 'contato';
+type Page = 'inicio' | 'sobre' | 'documentacao' | 'contato';
 
-function MainApp() {
-  const location = useLocation();
+function App() {
   const [currentPage, setCurrentPage] = useState<Page>('inicio');
-  const [selectedUniverse, setSelectedUniverse] = useState<string | null>(null);
-
-  // Only show navigation on non-auth/dashboard pages
-  const showNavigation = !location.pathname.startsWith('/auth') && 
-                         !location.pathname.startsWith('/dashboard') && 
-                         !location.pathname.startsWith('/universe/');
 
   const handleNavigate = (page: string) => {
     setCurrentPage(page as Page);
-    setSelectedUniverse(null);
   };
 
-  const handleSelectUniverse = (universeId: string) => {
-    setSelectedUniverse(universeId);
-    setCurrentPage('universos');
-  };
-
-  const handleBackFromUniverse = () => {
-    setSelectedUniverse(null);
-    setCurrentPage('inicio');
+  const handleSelectUniverse = () => {
+    // For now, just a placeholder
   };
 
   return (
-    <>
-      {showNavigation && <Navigation currentPage={currentPage} onNavigate={handleNavigate} />}
+    <BrowserRouter>
+      <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
       
       <Routes>
         <Route path="/auth" element={<Auth />} />
@@ -50,7 +35,7 @@ function MainApp() {
         <Route path="/" element={
           <div className="min-h-screen">
             <AnimatePresence mode="wait">
-              {currentPage === 'inicio' && !selectedUniverse && (
+              {currentPage === 'inicio' && (
                 <motion.div
                   key="home"
                   initial={{ opacity: 0 }}
@@ -59,21 +44,6 @@ function MainApp() {
                   transition={{ duration: 0.5 }}
                 >
                   <HomePage onSelectUniverse={handleSelectUniverse} />
-                </motion.div>
-              )}
-
-              {currentPage === 'universos' && selectedUniverse && (
-                <motion.div
-                  key="universe"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <EnhancedUniversePage 
-                    universeId={selectedUniverse} 
-                    onBack={handleBackFromUniverse}
-                  />
                 </motion.div>
               )}
 
@@ -117,14 +87,6 @@ function MainApp() {
         } />
       </Routes>
       <Toaster />
-    </>
-  );
-}
-
-function App() {
-  return (
-    <BrowserRouter>
-      <MainApp />
     </BrowserRouter>
   );
 }
