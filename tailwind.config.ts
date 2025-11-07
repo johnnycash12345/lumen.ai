@@ -53,6 +53,10 @@ export default {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        'lumen-navy': '#0B1E3D',
+        'lumen-cream': '#F8F4ED',
+        'lumen-white': '#FFFFFF',
+        'lumen-gold': '#FFD479',
       },
       borderRadius: {
         lg: "var(--radius)",
