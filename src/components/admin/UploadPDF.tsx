@@ -6,8 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
-import { Upload, FileText, X, Check } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Upload, FileText, X, Check, Eye, Database, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
+import { ExtractionMonitor } from '@/components/ExtractionMonitor';
+import { ExtractedEntitiesView } from '@/components/ExtractedEntitiesView';
+import { QualityValidation } from '@/components/QualityValidation';
 
 export function UploadPDF() {
   const [file, setFile] = useState<File | null>(null);
@@ -18,6 +22,10 @@ export function UploadPDF() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [processingSteps, setProcessingSteps] = useState<string[]>([]);
+  const [jobId, setJobId] = useState<string | null>(null);
+  const [universeId, setUniverseId] = useState<string | null>(null);
+  const [isComplete, setIsComplete] = useState(false);
+  const [activeTab, setActiveTab] = useState('monitor');
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -106,12 +114,9 @@ export function UploadPDF() {
         'PDF enviado com sucesso! O processamento pode levar alguns minutos.'
       );
 
-      // Reset form
-      setFile(null);
-      setFormData({
-        title: '',
-        description: '',
-      });
+      // Salvar IDs para monitoramento
+      setJobId(universe.id); // Temporariamente usando universe.id como jobId
+      setUniverseId(universe.id);
       setIsProcessing(false);
     } catch (error: any) {
       console.error('Upload error:', error);
@@ -125,13 +130,49 @@ export function UploadPDF() {
     setProcessingSteps((prev) => [...prev, step]);
   };
 
+  const handleStartNew = () => {
+    setFile(null);
+    setFormData({ title: '', description: '' });
+    setJobId(null);
+    setUniverseId(null);
+    setIsComplete(false);
+    setProgress(0);
+    setProcessingSteps([]);
+    setActiveTab('monitor');
+  };
+
+  const handlePublish = async () => {
+    if (!universeId) return;
+    try {
+      const { error } = await supabase
+        .from('universes')
+        .update({ processing_status: 'completed' })
+        .eq('id', universeId);
+
+      if (error) throw error;
+      toast.success('Universo publicado com sucesso!');
+      handleStartNew();
+    } catch (error: any) {
+      console.error('Erro ao publicar:', error);
+      toast.error('Erro ao publicar universo');
+    }
+  };
+
   return (
     <div>
-      <h1 style={{ fontFamily: 'Playfair Display, serif' }} className="text-3xl text-[#0B1E3D] mb-8">
-        Upload de PDF
-      </h1>
+      <div className="flex items-center justify-between mb-8">
+        <h1 style={{ fontFamily: 'Playfair Display, serif' }} className="text-3xl text-[#0B1E3D]">
+          Upload de PDF
+        </h1>
+        {universeId && (
+          <Button onClick={handleStartNew} variant="outline">
+            Novo Upload
+          </Button>
+        )}
+      </div>
 
-      <Card className="max-w-2xl mx-auto p-8 bg-white">
+      {!universeId ? (
+        <Card className="max-w-2xl mx-auto p-8 bg-white">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* File Upload */}
           <div>
@@ -277,6 +318,110 @@ export function UploadPDF() {
           </div>
         </form>
       </Card>
+      ) : (
+        <div className="space-y-6">
+          {/* Abas de Monitoramento */}
+          <Card className="p-6 bg-white">
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="monitor" className="flex items-center gap-2">
+                  <Eye className="w-4 h-4" />
+                  Monitoramento
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="entities" 
+                  className="flex items-center gap-2"
+                  disabled={!isComplete}
+                >
+                  <Database className="w-4 h-4" />
+                  Entidades
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="quality" 
+                  className="flex items-center gap-2"
+                  disabled={!isComplete}
+                >
+                  <CheckCircle className="w-4 h-4" />
+                  Qualidade
+                </TabsTrigger>
+              </TabsList>
+
+              {/* Aba Monitoramento */}
+              <TabsContent value="monitor" className="mt-6">
+                <ExtractionMonitor
+                  jobId={jobId!}
+                  universeId={universeId}
+                  onComplete={() => {
+                    setIsComplete(true);
+                    setActiveTab('entities');
+                  }}
+                />
+              </TabsContent>
+
+              {/* Aba Entidades */}
+              <TabsContent value="entities" className="mt-6">
+                <ExtractedEntitiesView
+                  universeId={universeId}
+                  onEdit={(entityType, entityId) => {
+                    toast.info(`Editar ${entityType}: ${entityId}`);
+                  }}
+                />
+              </TabsContent>
+
+              {/* Aba Qualidade */}
+              <TabsContent value="quality" className="mt-6">
+                <QualityValidation
+                  universeId={universeId}
+                  onAccept={handlePublish}
+                  onReview={() => setActiveTab('entities')}
+                  onReprocess={() => {
+                    setIsComplete(false);
+                    setActiveTab('monitor');
+                    toast.info('Reprocessamento iniciado');
+                  }}
+                />
+              </TabsContent>
+            </Tabs>
+          </Card>
+
+          {/* Botões de Ação Final */}
+          {isComplete && (
+            <Card className="p-6 bg-white">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  onClick={handlePublish}
+                  className="flex-1 bg-[#0B1E3D] hover:bg-[#0B1E3D]/90 text-white"
+                  size="lg"
+                >
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  Publicar Universo
+                </Button>
+                <Button
+                  onClick={() => setActiveTab('entities')}
+                  variant="outline"
+                  className="flex-1"
+                  size="lg"
+                >
+                  <FileText className="w-4 h-4 mr-2" />
+                  Editar Entidades
+                </Button>
+                <Button
+                  onClick={() => {
+                    setIsComplete(false);
+                    setActiveTab('monitor');
+                  }}
+                  variant="outline"
+                  className="flex-1"
+                  size="lg"
+                >
+                  <Upload className="w-4 h-4 mr-2" />
+                  Reprocessar
+                </Button>
+              </div>
+            </Card>
+          )}
+        </div>
+      )}
     </div>
   );
 }
