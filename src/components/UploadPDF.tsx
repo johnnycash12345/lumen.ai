@@ -105,10 +105,16 @@ export const UploadPDF = ({ onPublish }: UploadPDFProps) => {
       setStage('monitoring');
       toast.success('Upload iniciado! Processando PDF...');
 
-      // TODO: Chamar edge function para processar o PDF
-      // await supabase.functions.invoke('process-pdf', {
-      //   body: { jobId: job.id, universeId: universe.id, filePath }
-      // });
+      // Chamar edge function para processar o PDF
+      supabase.functions.invoke('process-pdf', {
+        body: { jobId: job.id, universeId: universe.id, filePath }
+      }).then(({ data, error }) => {
+        if (error) {
+          console.error('Erro ao iniciar processamento:', error);
+        } else {
+          console.log('Processamento iniciado:', data);
+        }
+      });
 
     } catch (error: any) {
       console.error('Erro no upload:', error);
