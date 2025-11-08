@@ -17,33 +17,59 @@ interface MotionProps {
   onMouseLeave?: () => void;
 }
 
-// Simple motion.div replacement
-export const motion = {
-  div: forwardRef<HTMLDivElement, MotionProps>(({ children, className = '', ...props }, ref) => (
+// Create individual components with forwardRef
+const MotionDiv = forwardRef<HTMLDivElement, MotionProps>(
+  ({ children, className = '', ...props }, ref) => (
     <div ref={ref} className={`${className} animate-fade-in`} {...props as any}>
       {children}
     </div>
-  )),
-  span: forwardRef<HTMLSpanElement, MotionProps>(({ children, className = '', ...props }, ref) => (
-    <span ref={ref} className={`${className}`} {...props as any}>
+  )
+);
+MotionDiv.displayName = 'MotionDiv';
+
+const MotionSpan = forwardRef<HTMLSpanElement, MotionProps>(
+  ({ children, className = '', ...props }, ref) => (
+    <span ref={ref} className={className} {...props as any}>
       {children}
     </span>
-  )),
-  h1: forwardRef<HTMLHeadingElement, MotionProps>(({ children, className = '', ...props }, ref) => (
+  )
+);
+MotionSpan.displayName = 'MotionSpan';
+
+const MotionH1 = forwardRef<HTMLHeadingElement, MotionProps>(
+  ({ children, className = '', ...props }, ref) => (
     <h1 ref={ref} className={`${className} animate-fade-in`} {...props as any}>
       {children}
     </h1>
-  )),
-  p: forwardRef<HTMLParagraphElement, MotionProps>(({ children, className = '', ...props }, ref) => (
+  )
+);
+MotionH1.displayName = 'MotionH1';
+
+const MotionP = forwardRef<HTMLParagraphElement, MotionProps>(
+  ({ children, className = '', ...props }, ref) => (
     <p ref={ref} className={`${className} animate-fade-in`} {...props as any}>
       {children}
     </p>
-  )),
-  button: forwardRef<HTMLButtonElement, MotionProps>(({ children, className = '', ...props }, ref) => (
-    <button ref={ref} className={`${className}`} {...props as any}>
+  )
+);
+MotionP.displayName = 'MotionP';
+
+const MotionButton = forwardRef<HTMLButtonElement, MotionProps>(
+  ({ children, className = '', ...props }, ref) => (
+    <button ref={ref} className={className} {...props as any}>
       {children}
     </button>
-  )),
+  )
+);
+MotionButton.displayName = 'MotionButton';
+
+// Export as motion object
+export const motion = {
+  div: MotionDiv,
+  span: MotionSpan,
+  h1: MotionH1,
+  p: MotionP,
+  button: MotionButton,
 };
 
 // AnimatePresence - just renders children
