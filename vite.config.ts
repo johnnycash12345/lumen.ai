@@ -61,3 +61,4 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
 }));
+// Forçando rebuild para resolver erro de infra
