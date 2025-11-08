@@ -3,7 +3,7 @@ import { UniverseCard } from './UniverseCard';
 import { GlobalChat } from './GlobalChat';
 import { NewsCarousel } from './NewsCarousel';
 import { CuriosityWidget } from './CuriosityWidget';
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import { newsArticles, curiosities } from '../data/mockUniverseData';
 
 interface HomePageProps {

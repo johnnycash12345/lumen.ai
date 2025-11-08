@@ -1,4 +1,4 @@
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import { User, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 

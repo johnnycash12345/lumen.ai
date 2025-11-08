@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';

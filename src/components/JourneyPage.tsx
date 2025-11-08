@@ -1,4 +1,4 @@
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import { Award, TrendingUp, Star, Clock } from 'lucide-react';
 import { UserProgress } from './UserProgress';
 import { ResearchNotes } from './ResearchNotes';

@@ -1,5 +1,5 @@
 import { Hexagon, Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
 interface NavigationProps {

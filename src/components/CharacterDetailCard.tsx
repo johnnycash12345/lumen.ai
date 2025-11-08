@@ -4,7 +4,7 @@ import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { MotivationAnalysis } from './MotivationAnalysis';
 import { QuotesCarousel } from './QuotesCarousel';
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import { watsonDetailedData } from '../data/mockUniverseData';
 
 interface CharacterDetailCardProps {

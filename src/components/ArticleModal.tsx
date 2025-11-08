@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import { X, MessageCircle, Users, Quote, ThumbsUp, ThumbsDown, Calendar } from 'lucide-react';
 import { Dialog, DialogContent } from './ui/dialog';
 import { Button } from './ui/button';

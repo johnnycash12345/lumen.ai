@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, X, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 

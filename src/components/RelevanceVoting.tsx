@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import { ThumbsUp, ThumbsDown } from 'lucide-react';
 
 interface RelevanceVotingProps {

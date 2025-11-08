@@ -1,4 +1,4 @@
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import { Award, BookOpen, Users, MapPin, TrendingUp } from 'lucide-react';
 import { Progress } from './ui/progress';
 

@@ -1,4 +1,4 @@
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import { Sparkles, User } from 'lucide-react';
 import { TypingEffect } from './TypingEffect';
 import { RelevanceVoting } from './RelevanceVoting';

@@ -1,4 +1,4 @@
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send } from 'lucide-react';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';

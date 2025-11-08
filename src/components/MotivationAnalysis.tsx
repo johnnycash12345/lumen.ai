@@ -1,4 +1,4 @@
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import { Target } from 'lucide-react';
 
 interface Motivation {

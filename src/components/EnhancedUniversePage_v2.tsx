@@ -14,7 +14,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { ScrollArea } from './ui/scroll-area';
 import { LoadingDots } from './LoadingDots';
-import { motion, AnimatePresence } from 'motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   newsArticles, 
   curiosities, 
