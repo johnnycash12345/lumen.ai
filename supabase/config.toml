@@ -2,3 +2,6 @@ project_id = "ktqiyhrfiryfgkitkpgh"
 
 [functions.process-pdf]
 verify_jwt = true
+
+[functions.process-pdf-complete]
+verify_jwt = true
