@@ -160,7 +160,7 @@ Retorne APENAS o JSON, sem explicações adicionais.`;
     // Update universe status
     await supabase
       .from('universes')
-      .update({ status: 'ACTIVE' })
+      .update({ processing_status: 'completed' })
       .eq('id', universeId);
 
     // Update job status
