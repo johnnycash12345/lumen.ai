@@ -40,7 +40,7 @@ export function ExtractionMonitor({ jobId, universeId, onComplete }: ExtractionM
         const { data: job, error: jobError } = await supabase
           .from('processing_jobs')
           .select('status, progress, error_message')
-          .eq('universe_id', universeId)
+          .eq('id', jobId)
           .single();
 
         if (jobError) throw jobError;

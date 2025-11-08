@@ -61,4 +61,3 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
 }));
-// Build trigger
