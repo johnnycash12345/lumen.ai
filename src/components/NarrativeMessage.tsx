@@ -36,7 +36,7 @@ export function NarrativeMessage({ character, content, fidelityScore = 95 }: Nar
         {/* Character Label */}
         <div className="flex items-center gap-2 mb-3">
           <Quote className="w-4 h-4 text-[#FFD479]" />
-          <span style={{ fontFamily: 'Playfair Display, serif' }} className="text-[#0B1E3D]">
+          <span className="font-['Playfair_Display'] text-[#0B1E3D]">
             Voz de {character}
           </span>
         </div>
