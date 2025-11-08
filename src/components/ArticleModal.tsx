@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from '@/lib/motion';
+import { motion } from 'motion/react';
 import { X, MessageCircle, Users, Quote, ThumbsUp, ThumbsDown, Calendar } from 'lucide-react';
 import { Dialog, DialogContent } from './ui/dialog';
 import { Button } from './ui/button';

@@ -1,4 +1,4 @@
-import { motion } from '@/lib/motion';
+import { motion } from 'motion/react';
 
 export function LoadingDots() {
   return (

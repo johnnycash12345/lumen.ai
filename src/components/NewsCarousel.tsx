@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from '@/lib/motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { ArticleModal } from './ArticleModal';
 

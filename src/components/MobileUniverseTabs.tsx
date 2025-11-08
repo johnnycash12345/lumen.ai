@@ -1,4 +1,4 @@
-import { motion } from '@/lib/motion';
+import { motion } from 'motion/react';
 import { Book, MessageCircle, GitBranch } from 'lucide-react';
 
 interface MobileUniverseTabsProps {

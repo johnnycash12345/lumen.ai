@@ -1,6 +1,6 @@
+import { motion, useScroll, useTransform } from 'motion/react';
 import { Shield, Network, Package, BookOpen } from 'lucide-react';
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from '@/lib/motion';
 
 export function AboutPage() {
   const ref = useRef(null);

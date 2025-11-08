@@ -9,7 +9,7 @@ import { MotivationAnalysis } from './MotivationAnalysis';
 import { QuotesCarousel } from './QuotesCarousel';
 import { Timeline } from './Timeline';
 import { Badge } from './ui/badge';
-import { motion } from '@/lib/motion';
+import { motion } from 'motion/react';
 import { 
   watsonDetailedData, 
   lestradeDetailedData, 

@@ -1,6 +1,6 @@
+import { motion } from 'motion/react';
 import { FileText, Download } from 'lucide-react';
 import { Button } from './ui/button';
-import { motion } from '@/lib/motion';
 
 export function DocumentationPage() {
   const documents = [

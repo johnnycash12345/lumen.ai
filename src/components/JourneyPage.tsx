@@ -1,4 +1,4 @@
-import { motion } from '@/lib/motion';
+import { motion } from 'motion/react';
 import { Award, TrendingUp, Star, Clock } from 'lucide-react';
 import { UserProgress } from './UserProgress';
 import { ResearchNotes } from './ResearchNotes';

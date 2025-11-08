@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from '@/lib/motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { Scale, X, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';

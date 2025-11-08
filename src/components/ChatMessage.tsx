@@ -1,4 +1,4 @@
-import { motion } from '@/lib/motion';
+import { motion } from 'motion/react';
 import { Sparkles, User } from 'lucide-react';
 import { TypingEffect } from './TypingEffect';
 import { RelevanceVoting } from './RelevanceVoting';

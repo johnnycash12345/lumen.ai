@@ -1,9 +1,9 @@
+import { motion } from 'motion/react';
 import { Mail, Github, Linkedin, Send } from 'lucide-react';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
 import { useState } from 'react';
-import { motion } from '@/lib/motion';
 
 export function ContactPage() {
   const [formData, setFormData] = useState({
