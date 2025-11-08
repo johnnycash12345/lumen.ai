@@ -1,5 +1,4 @@
 import { Hexagon, Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
 interface NavigationProps {
@@ -31,18 +30,9 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
             onClick={() => handleNavigate('inicio')}
             className="flex items-center gap-2 sm:gap-3 group"
           >
-            <motion.div
-              animate={{ 
-                filter: [
-                  'drop-shadow(0 0 2px rgba(255, 212, 121, 0.5))',
-                  'drop-shadow(0 0 8px rgba(255, 212, 121, 0.8))',
-                  'drop-shadow(0 0 2px rgba(255, 212, 121, 0.5))'
-                ]
-              }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
+            <div className="animate-pulse">
               <Hexagon className="w-6 h-6 sm:w-8 sm:h-8 text-[#FFD479] fill-[#FFD479]" />
-            </motion.div>
+            </div>
             <span style={{ fontFamily: 'Playfair Display, serif' }} className="text-lg sm:text-xl lg:text-2xl text-[#0B1E3D] group-hover:text-[#FFD479] transition-colors duration-300">
               LUMEN
             </span>
@@ -62,11 +52,7 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
               >
                 {item.label}
                 {currentPage === item.id && (
-                  <motion.span 
-                    layoutId="activeTab"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#FFD479]"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#FFD479]" />
                 )}
               </button>
             ))}
@@ -88,56 +74,44 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
       </nav>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-[#0B1E3D]/20 backdrop-blur-sm z-40 md:hidden"
-            />
-            
-            {/* Menu Panel */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-[57px] sm:top-[65px] right-0 bottom-0 w-64 bg-white border-l border-[#0B1E3D]/10 z-40 md:hidden shadow-2xl"
-            >
-              <div className="p-6 space-y-1">
-                {navItems.map((item, idx) => (
-                  <motion.button
-                    key={item.id}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    onClick={() => handleNavigate(item.id)}
-                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ${
-                      currentPage === item.id
-                        ? 'bg-gradient-to-r from-[#FFD479]/20 to-[#FFD479]/10 text-[#0B1E3D] border-l-4 border-[#FFD479]'
-                        : 'text-[#0B1E3D]/70 hover:bg-[#FFD479]/5 hover:text-[#0B1E3D]'
-                    }`}
-                  >
-                    {item.label}
-                  </motion.button>
-                ))}
-              </div>
+      {mobileMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 bg-[#0B1E3D]/20 backdrop-blur-sm z-40 md:hidden animate-fade-in"
+          />
+          
+          {/* Menu Panel */}
+          <div
+            className="fixed top-[57px] sm:top-[65px] right-0 bottom-0 w-64 bg-white border-l border-[#0B1E3D]/10 z-40 md:hidden shadow-2xl animate-slide-in-right"
+          >
+            <div className="p-6 space-y-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleNavigate(item.id)}
+                  className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ${
+                    currentPage === item.id
+                      ? 'bg-gradient-to-r from-[#FFD479]/20 to-[#FFD479]/10 text-[#0B1E3D] border-l-4 border-[#FFD479]'
+                      : 'text-[#0B1E3D]/70 hover:bg-[#FFD479]/5 hover:text-[#0B1E3D]'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
 
-              {/* Golden accent at bottom */}
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="h-px bg-gradient-to-r from-transparent via-[#FFD479] to-transparent" />
-                <p className="text-xs text-[#0B1E3D]/40 text-center mt-4">
-                  Enciclopédia Interativa
-                </p>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+            {/* Golden accent at bottom */}
+            <div className="absolute bottom-6 left-6 right-6">
+              <div className="h-px bg-gradient-to-r from-transparent via-[#FFD479] to-transparent" />
+              <p className="text-xs text-[#0B1E3D]/40 text-center mt-4">
+                Enciclopédia Interativa
+              </p>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

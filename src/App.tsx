@@ -7,7 +7,6 @@ import { DocumentationPage } from './components/DocumentationPage';
 import { ContactPage } from './components/ContactPage';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { Toaster } from './components/ui/sonner';
-import { motion, AnimatePresence } from 'framer-motion';
 
 type Page = 'inicio' | 'universos' | 'sobre' | 'documentacao' | 'contato' | 'admin';
 
@@ -60,70 +59,30 @@ function App() {
       <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
       <Toaster />
       
-      <AnimatePresence mode="wait">
+      <div className="animate-fade-in">
         {currentPage === 'inicio' && !selectedUniverse && (
-          <motion.div
-            key="home"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <HomePage onSelectUniverse={handleSelectUniverse} />
-          </motion.div>
+          <HomePage onSelectUniverse={handleSelectUniverse} />
         )}
 
         {currentPage === 'universos' && selectedUniverse && (
-          <motion.div
-            key="universe"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <EnhancedUniversePage 
-              universeId={selectedUniverse} 
-              onBack={handleBackFromUniverse}
-            />
-          </motion.div>
+          <EnhancedUniversePage 
+            universeId={selectedUniverse} 
+            onBack={handleBackFromUniverse}
+          />
         )}
 
         {currentPage === 'sobre' && (
-          <motion.div
-            key="about"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <AboutPage />
-          </motion.div>
+          <AboutPage />
         )}
 
         {currentPage === 'documentacao' && (
-          <motion.div
-            key="documentation"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <DocumentationPage />
-          </motion.div>
+          <DocumentationPage />
         )}
 
         {currentPage === 'contato' && (
-          <motion.div
-            key="contact"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <ContactPage />
-          </motion.div>
+          <ContactPage />
         )}
-      </AnimatePresence>
+      </div>
     </div>
   );
 }
