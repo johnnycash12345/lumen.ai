@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion } from 'motion';
 import { Swords } from 'lucide-react';
 
 interface Conflict {

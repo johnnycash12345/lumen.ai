@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion } from 'motion';
 import { User } from 'lucide-react';
 
 interface Character {

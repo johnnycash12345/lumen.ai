@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion } from 'motion';
 import { Quote, Sparkles } from 'lucide-react';
 
 interface NarrativeMessageProps {

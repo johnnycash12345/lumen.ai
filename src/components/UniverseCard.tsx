@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion } from 'motion';
 import { LucideIcon } from 'lucide-react';
 
 interface UniverseCardProps {

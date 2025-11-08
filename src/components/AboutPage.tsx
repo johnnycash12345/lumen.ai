@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion';
 import { Shield, Network, Package, BookOpen } from 'lucide-react';
 import { useRef } from 'react';
 

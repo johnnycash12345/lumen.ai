@@ -7,7 +7,7 @@ import { DocumentationPage } from './components/DocumentationPage';
 import { ContactPage } from './components/ContactPage';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { Toaster } from './components/ui/sonner';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'motion';
 
 type Page = 'inicio' | 'universos' | 'sobre' | 'documentacao' | 'contato' | 'admin';
 

@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion } from 'motion';
 import { User, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 
