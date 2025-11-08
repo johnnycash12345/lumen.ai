@@ -4,7 +4,7 @@ import { ChatMessage } from './ChatMessage';
 import { NarrativeMessage } from './NarrativeMessage';
 import { RelationshipMap } from './RelationshipMap';
 import { MobileUniverseTabs } from './MobileUniverseTabs';
-import { motion } from 'framer-motion';
+import { motion } from '@/lib/motion';
 import { ScrollArea } from './ui/scroll-area';
 import { Input } from './ui/input';
 import { Button } from './ui/button';

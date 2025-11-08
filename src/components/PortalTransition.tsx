@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from '@/lib/motion';
 
 interface PortalTransitionProps {
   isVisible: boolean;

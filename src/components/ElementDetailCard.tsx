@@ -2,7 +2,7 @@ import { MapPin, BookOpen, ArrowLeft, Calendar, Users } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
-import { motion } from 'framer-motion';
+import { motion } from '@/lib/motion';
 
 interface ElementDetailCardProps {
   element: {

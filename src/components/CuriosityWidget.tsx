@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from '@/lib/motion';
 import { Lightbulb, RefreshCw, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 
