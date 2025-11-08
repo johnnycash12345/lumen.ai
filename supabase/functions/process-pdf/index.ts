@@ -169,28 +169,7 @@ Retorne APENAS o JSON, sem explicações adicionais.`;
       .update({ status: 'COMPLETED', progress: 100 })
       .eq('universe_id', universeId);
 
-    console.log('Processing complete! Creating pages...');
-
-    // Create dynamic pages for all entities
-    try {
-      const { data: pagesResult, error: pagesError } = await supabase.functions.invoke(
-        'create-universe-pages',
-        {
-          body: { universeId },
-        }
-      );
-
-      if (pagesError) {
-        console.error('Failed to create pages:', pagesError);
-      } else {
-        console.log(`Pages created: ${pagesResult.pagesCreated}`);
-      }
-    } catch (pageError) {
-      console.error('Error creating pages:', pageError);
-      // Don't fail the whole process if page creation fails
-    }
-
-    console.log('Processing and page creation complete!');
+    console.log('Processing complete!');
 
     return new Response(
       JSON.stringify({
